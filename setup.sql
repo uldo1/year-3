@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS accounts (
 );
 
 
+
 INSERT INTO accounts(user, pass)
 	VALUES("doej", "$2b$10$gL33obKAFUT5DK3pEbh72OIHztsWBniBBh.PdeKOrF1yr5KFAsdZO");

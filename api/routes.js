@@ -5,6 +5,7 @@ import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 
 import { extractCredentials, saveFile } from './modules/util.js'
 import { login, register } from './modules/accounts.js'
+import { forums } from './modules/databasecmd.js'
 
 const router = new Router()
 
@@ -14,6 +15,31 @@ router.get('/', async context => {
 	const data = await Deno.readTextFile('spa/index.html')
 	context.response.body = data
 })
+
+router.get('/v1/forums', async context => {
+	const host = context.request.url.host
+	 
+    let forumsfromdb = await forums()
+    console.log(forumsfromdb)
+    
+   // const arr = records.reduce( (acc, val) => {
+		//acc.push(val.genre)
+		//return acc
+	//}, [])
+	//console.log(arr)
+	//const data = {status: 200, data: arr}
+	//context.status = Status.OK
+	//context.response.body = JSON.stringify(data, null, 2)
+    
+	
+	forumsfromdb.forEach(forum => {
+		forum.url = `https://${host}/v1/forums/${forum.id}`
+		delete forum.id
+	})
+	context.response.body = JSON.stringify(forumsfromdb, null, 2)
+})
+
+
 
 router.get('/api/accounts', async context => {
 	console.log('GET /api/accounts')
