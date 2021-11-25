@@ -23,7 +23,7 @@ router.get('/api/v1/forums', async context => {
     console.log(forumsfromdb)
 	forumsfromdb.forEach(forum => {
 		forum.url = `https://${host}/api/v1/forums/${forum.id}`
-		delete forum.id
+		//delete forum.id // ja nesaies jadzes
 	})
 	context.response.body = JSON.stringify(forumsfromdb, null, 2)
 })

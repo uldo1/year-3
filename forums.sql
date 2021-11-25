@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `Forums` (
   `Creator_username` varchar(255),
   `id` mediumint UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `Date_created` datetime,
-  `Avatar_path` varchar(255)
+  `Image_name` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `Comments` (

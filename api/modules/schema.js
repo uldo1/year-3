@@ -4,7 +4,7 @@ const ajv = new Ajv(allErrors: true)
 
 
 
-export const survey = ajv.compile({
+export const forumcheck = ajv.compile({
     properties: {
         Forum_name{
         type: "string",
@@ -32,7 +32,26 @@ export const survey = ajv.compile({
 }
 )
 
-export let forumschem = {
+export let forumschema = {
+    jsonapi:{
+        version: '1.0'
+    },
+    methods: ['GET','POST'],
+    name: 'forums',
+    desc: 'All the forums created',
+    schema: {
+        
+  Forum_name: 'string',
+  Summary: 'string',
+  Description: 'string',
+  Creator_username: 'string',
+  id: 'number',
+  Date_created: 'ISO8601 string',
+  Avatar_path: 'string',
+  url: 'string',
+        
+    },
+    
     
     
     
