@@ -5,7 +5,8 @@ import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 
 import { extractCredentials, saveFile } from './modules/util.js'
 import { login, register } from './modules/accounts.js'
-import { forums } from './modules/databasecmd.js'
+import { forums, saveforum } from './modules/databasecmd.js'
+import {forumcheck, forumschema} from './modules/schema.js'
 
 const router = new Router()
 
@@ -34,15 +35,34 @@ router.post('/api/v1/forums', async context => {
     const token = context.request.headers.get("Authorization")
     const credentials = extractCredentials(token)
     const username = credentials.user
-    console.log("before usernaame")
-    console.log(username)
+    
     
     
 	// get the data from the request body
 	const body  = await context.request.body()
-	const data = await body.value
-	console.log(JSON.stringify(data, null, 2))
-	
+	let data = await body.value
+    try{
+        const validat = forumcheck(data)
+        console.log(validat)
+        if (validat === false) throw forumcheck.errors
+        data.username = username
+        const now = new Date().toISOString()
+        const date = now.slice(0, 19).replace('T', ' ')
+        data.Date_created = date
+        // now i save it to db
+        await saveforum(data)
+        
+        
+    }catch(err) {
+        console.log(err)
+        
+    }
+    
+        
+      
+    
+    
+  
     
     //gotta implement the validation here
 	const response = {
@@ -53,7 +73,7 @@ router.post('/api/v1/forums', async context => {
 	// finally send the http response
 	context.response.status = 201
 	context.response.body = JSON.stringify(response, null, 2)
-    console.log(response)
+    
 })
 
 

@@ -1,15 +1,15 @@
 /* ajv 6.12.2: Another JSON Schema Validator */
 import Ajv from './ajv.js'
-const ajv = new Ajv(allErrors: true)
+const ajv = new Ajv({allErrors: true})
 
 
 
 export const forumcheck = ajv.compile({
     properties: {
-        Forum_name{
+        Forum_name: {
         type: "string",
         minLength: 2,
-        maxLenght: 20,
+        maxLenght: 20
     }, 
   Summary: {
         type: "string",
@@ -17,17 +17,17 @@ export const forumcheck = ajv.compile({
         
     },
   Description: {
-      type:"string"
+      type:"string",
       minLength: 2,    
 }, 
-  Avatar_path: {
+  Image_name: {
       type: "string",
       minLength: 3,
 },
         
         
     },
-   required: ['Summary','Description','Avatar_path'] 
+   required: ['Forum_name','Summary','Description','Image_name'] 
     
 }
 )
@@ -47,7 +47,7 @@ export let forumschema = {
   Creator_username: 'string',
   id: 'number',
   Date_created: 'ISO8601 string',
-  Avatar_path: 'string',
+  Image_name: 'string',
   url: 'string',
         
     },
