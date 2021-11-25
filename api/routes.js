@@ -16,27 +16,44 @@ router.get('/', async context => {
 	context.response.body = data
 })
 
-router.get('/v1/forums', async context => {
+router.get('/api/v1/forums', async context => {
 	const host = context.request.url.host
-	 
+	console.log("/api/v1/forums") 
     let forumsfromdb = await forums()
     console.log(forumsfromdb)
-    
-   // const arr = records.reduce( (acc, val) => {
-		//acc.push(val.genre)
-		//return acc
-	//}, [])
-	//console.log(arr)
-	//const data = {status: 200, data: arr}
-	//context.status = Status.OK
-	//context.response.body = JSON.stringify(data, null, 2)
-    
-	
 	forumsfromdb.forEach(forum => {
-		forum.url = `https://${host}/v1/forums/${forum.id}`
+		forum.url = `https://${host}/api/v1/forums/${forum.id}`
 		delete forum.id
 	})
 	context.response.body = JSON.stringify(forumsfromdb, null, 2)
+})
+
+
+router.post('/api/v1/forums', async context => {
+	console.log('POST /v1/forums')
+    const token = context.request.headers.get("Authorization")
+    const credentials = extractCredentials(token)
+    const username = credentials.user
+    console.log("before usernaame")
+    console.log(username)
+    
+    
+	// get the data from the request body
+	const body  = await context.request.body()
+	const data = await body.value
+	console.log(JSON.stringify(data, null, 2))
+	
+    
+    //gotta implement the validation here
+	const response = {
+		status: 'success',
+		msg: 'forum added',
+		data: data
+	}
+	// finally send the http response
+	context.response.status = 201
+	context.response.body = JSON.stringify(response, null, 2)
+    console.log(response)
 })
 
 
