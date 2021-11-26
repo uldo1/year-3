@@ -5,6 +5,7 @@ const ajv = new Ajv({allErrors: true})
 
 
 export const forumcheck = ajv.compile({
+    type: "object",
     properties: {
         Forum_name: {
         type: "string",
@@ -29,18 +30,16 @@ export const forumcheck = ajv.compile({
     },
    required: ['Forum_name','Summary','Description','Image_name'] 
     
-}
-)
+})
 
 export let forumschema = {
-    jsonapi:{
+    jsonapi: {
         version: '1.0'
     },
     methods: ['GET','POST'],
     name: 'forums',
     desc: 'All the forums created',
-    schema: {
-        
+    schema: {       
   Forum_name: 'string',
   Summary: 'string',
   Description: 'string',
@@ -48,11 +47,28 @@ export let forumschema = {
   id: 'number',
   Date_created: 'ISO8601 string',
   Image_name: 'string',
-  url: 'string',
+  url: 'string',       
+    }
         
+}
+
+export let bothtogether = { 
+    jsonapi: {
+        version: '1.0'
     },
-    
-    
+    methods: ['GET','POST'],
+    name: 'comments',
+    desc: 'All the forum comments created',
+    schema: {
+  Comment: 'string',
+  Poster_username: 'string',
+  Creator_username: 'string',
+  id: 'number',
+  Date_posted: 'ISO8601 string',
+  forum_id: 'number',
+  
+        
+}
     
     
 }

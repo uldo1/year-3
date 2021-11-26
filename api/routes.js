@@ -5,8 +5,8 @@ import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 
 import { extractCredentials, saveFile } from './modules/util.js'
 import { login, register } from './modules/accounts.js'
-import { forums, saveforum } from './modules/databasecmd.js'
-import {forumcheck, forumschema} from './modules/schema.js'
+import { forums, saveforum, oneforum, forumcomments } from './modules/databasecmd.js'
+import {forumcheck, forumschema, bothtogether} from './modules/schema.js'
 
 const router = new Router()
 
@@ -24,7 +24,7 @@ router.get('/api/v1/forums', async context => {
     console.log(forumsfromdb)
 	forumsfromdb.forEach(forum => {
 		forum.url = `https://${host}/api/v1/forums/${forum.id}`
-		//delete forum.id // ja nesaies jadzes
+		
 	})
 	context.response.body = JSON.stringify(forumsfromdb, null, 2)
 })
@@ -51,30 +51,43 @@ router.post('/api/v1/forums', async context => {
         data.Date_created = date
         // now i save it to db
         await saveforum(data)
-        
+        context.response.status = 201
+        forumschema.data = data
+        forumschema.errors = null
+        context.response.body = JSON.stringify(forumschema)
         
     }catch(err) {
         console.log(err)
+        context.response.status = 406
+        forumschema.status = 406 
+        forumschema.errors = forumcheck.errors
+        console.log(forumschema)
+        context.response.body = JSON.stringify(forumschema)
         
     }
-    
-        
-      
-    
-    
-  
-    
-    //gotta implement the validation here
-	const response = {
-		status: 'success',
-		msg: 'forum added',
-		data: data
-	}
-	// finally send the http response
-	context.response.status = 201
-	context.response.body = JSON.stringify(response, null, 2)
-    
+            
 })
+
+router.get('/api/v1/forums/:id', async context => {
+	console.log("Forum called")
+	let forum = await oneforum(context.params.id)
+   // one forum works getting comments below
+    let comments = await forumcomments(context.params.id)
+    
+    bothtogether.forum = forum
+    bothtogether.comments = comments
+    console.log(bothtogether)
+    context.response.body = JSON.stringify(bothtogether)
+})
+
+
+
+
+
+
+
+
+
 
 
 

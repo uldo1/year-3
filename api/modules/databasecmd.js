@@ -24,4 +24,20 @@ export async function saveforum(data) {
 	return true
 }
 
-
+export async function oneforum(data){
+    console.log(data)
+	let sql = `SELECT Forum_name,Summary,Description,Creator_username,Date_created,Image_name FROM Forums WHERE id = ${data};`
+	const oneforumdb = await db.query(sql)
+    
+    return oneforumdb
+	    
+}
+export async function forumcomments(data){
+    
+	console.log(data)
+	let sql = `SELECT Comment,Poster_username,Date_posted FROM Comments WHERE forum_id = ${data};`
+	const comments = await db.query(sql)
+    
+    return comments
+	    
+}
