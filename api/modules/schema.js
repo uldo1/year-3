@@ -32,6 +32,20 @@ export const forumcheck = ajv.compile({
     
 })
 
+export const commentcheck = ajv.compile({
+    type: "object",
+    properties: {
+        Comment: {
+        type: "string",
+        minLength: 2    
+    },      
+    },
+   required: ['Comment'] 
+    
+})
+
+
+
 export let forumschema = {
     jsonapi: {
         version: '1.0'
@@ -62,7 +76,6 @@ export let bothtogether = {
     schema: {
   Comment: 'string',
   Poster_username: 'string',
-  Creator_username: 'string',
   id: 'number',
   Date_posted: 'ISO8601 string',
   forum_id: 'number',

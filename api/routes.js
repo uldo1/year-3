@@ -5,8 +5,8 @@ import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 
 import { extractCredentials, saveFile } from './modules/util.js'
 import { login, register } from './modules/accounts.js'
-import { forums, saveforum, oneforum, forumcomments } from './modules/databasecmd.js'
-import {forumcheck, forumschema, bothtogether} from './modules/schema.js'
+import { forums, saveforum, oneforum, forumcomments, checkifforumexists, savecomment } from './modules/databasecmd.js'
+import {forumcheck, forumschema, bothtogether, commentcheck} from './modules/schema.js'
 
 const router = new Router()
 
@@ -78,6 +78,61 @@ router.get('/api/v1/forums/:id', async context => {
     bothtogether.comments = comments
     console.log(bothtogether)
     context.response.body = JSON.stringify(bothtogether)
+})
+
+router.post('/api/v1/forums/:id', async context => {
+    const token = context.request.headers.get("Authorization")
+    const body  = await context.request.body()
+	let data = await body.value
+    const credentials = extractCredentials(token)
+    const username = credentials.user
+    try {
+    let forumid = await checkifforumexists(context.params.id)
+
+    const validation = commentcheck(data)
+    if (validation === false) throw commentcheck.errors
+    data.forum_id = context.params.id
+    data.username = username
+    const now = new Date().toISOString()
+    const date = now.slice(0, 19).replace('T', ' ')
+    
+    data.Date_created = date
+        // now i save it to db
+    await savecomment(data)
+    context.response.status = 201
+    bothtogether.data = data
+    bothtogether.errors = null
+    
+    
+    
+        
+    context.response.body = JSON.stringify(bothtogether)
+    
+        
+        
+    }catch(err){
+        context.response.status = 406
+        bothtogether.status = 406 
+        bothtogether.errors = err
+        console.log(bothtogether)
+        context.response.body = JSON.stringify(bothtogether)
+        
+    }
+    
+        
+  
+     
+           
+        
+    
+	//let forum = await oneforum(context.params.id)
+   // one forum works getting comments below
+    //let comments = await forumcomments(context.params.id)
+    
+    //bothtogether.forum = forum
+    //bothtogether.comments = comments
+    //console.log(bothtogether)
+    //context.response.body = JSON.stringify(bothtogether)
 })
 
 
