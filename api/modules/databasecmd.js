@@ -9,7 +9,7 @@ const salt = await genSalt(saltRounds)
 
 export async function forums(){
     
-	let sql = `SELECT id,Forum_name,Summary,Description,Creator_username,Date_created,Image_name FROM Forums`
+	let sql = `SELECT id,Forum_name,Summary,Description,Creator_username,DATE_FORMAT(Date_created,'%Y-%m-%d') AS Date_created,Image_name FROM Forums`
 	const forumsdb = await db.query(sql)
     console.log(forumsdb)
     return forumsdb
@@ -26,9 +26,9 @@ export async function saveforum(data) {
 
 export async function oneforum(data){
     console.log(data)
-	let sql = `SELECT Forum_name,Summary,Description,Creator_username,Date_created,Image_name FROM Forums WHERE id = ${data};`
+	let sql = `SELECT Forum_name,Summary,Description,Creator_username,DATE_FORMAT(Date_created,'%Y-%m-%d') AS Date_created,Image_name FROM Forums WHERE id = ${data};`
 	const oneforumdb = await db.query(sql)
-    
+    console.log(sql)
     return oneforumdb
 	    
 }
@@ -47,7 +47,7 @@ export async function checkifforumexists(data){
 export async function forumcomments(data){
     
 	console.log(data)
-	let sql = `SELECT Comment,Poster_username,Date_posted FROM Comments WHERE forum_id = ${data};`
+	let sql = `SELECT Comment_id,Comment,Poster_username,DATE_FORMAT(Date_posted,'%Y-%m-%d') AS Date_posted FROM Comments WHERE forum_id = ${data};`
 	const comments = await db.query(sql)
     
     return comments

@@ -25,6 +25,8 @@ async function uploadData(event) {
 	const file = document.querySelector('input[name="file"]').files[0]
 	file.base64 = await file2DataURI(file)
 	file.user = localStorage.getItem('username')
+    
+    // var tepat visu
 	console.log(file)
 	const url = '/api/files'
 	const options = {
@@ -35,6 +37,19 @@ async function uploadData(event) {
 		},
 		body: JSON.stringify(file)
 	}
+    
+    /*
+     * const uri = "/api/v1/forums"
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/vnd.api+json",
+            "Authorization": localStorage.getItem('authorization'),
+            
+        },
+       
+    } 
+     */
 	const response = await fetch(url, options)
 	console.log(response)
 	const json = await response.json()

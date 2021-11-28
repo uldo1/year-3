@@ -26,7 +26,7 @@ router.get('/api/v1/forums', async context => {
 		forum.url = `https://${host}/api/v1/forums/${forum.id}`
 		
 	})
-	context.response.body = JSON.stringify(forumsfromdb, null, 2)
+	context.response.body = JSON.stringify(forumsfromdb)
 })
 
 
@@ -70,12 +70,14 @@ router.post('/api/v1/forums', async context => {
 
 router.get('/api/v1/forums/:id', async context => {
 	console.log("Forum called")
+    const host = context.request.url.host
 	let forum = await oneforum(context.params.id)
    // one forum works getting comments below
     let comments = await forumcomments(context.params.id)
     
     bothtogether.forum = forum
     bothtogether.comments = comments
+    bothtogether.url = `https://${host}/api/v1/forums/${context.params.id}`
     console.log(bothtogether)
     context.response.body = JSON.stringify(bothtogether)
 })
@@ -94,7 +96,7 @@ router.post('/api/v1/forums/:id', async context => {
     data.forum_id = context.params.id
     data.username = username
     const now = new Date().toISOString()
-    const date = now.slice(0, 19).replace('T', ' ')
+    const date = now.slice(0, 19).replace('T', ' ');
     
     data.Date_created = date
         // now i save it to db
@@ -146,7 +148,7 @@ router.post('/api/v1/forums/:id', async context => {
 
 
 
-router.get('/api/accounts', async context => {
+router.get('/api/v1/accounts', async context => {
 	console.log('GET /api/accounts')
 	const token = context.request.headers.get('Authorization')
 	console.log(`auth: ${token}`)
@@ -174,7 +176,7 @@ router.get('/api/accounts', async context => {
 	}
 })
 
-router.post('/api/accounts', async context => {
+router.post('/api/v1/accounts', async context => {
 	console.log('POST /api/accounts')
 	const body  = await context.request.body()
 	const data = await body.value

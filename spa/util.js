@@ -24,7 +24,7 @@ export async function triggerPageChange() {
 	const node = template.content.cloneNode(true) // get a copy of the template node
 	try {
 		const module = await import(`./js/${page}.js`)
-		await module.setup(node) // the setup script may need to modify the template fragment before it is displayed
+		await module.setup(node)// the setup script may need to modify the template fragment before it is displayed
 	} catch(err) {
 		console.warn(`no script for "${page}" page or error in script`)
 		console.log(err)

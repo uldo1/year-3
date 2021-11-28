@@ -36,7 +36,14 @@
     
     
     <template id="forumdetails">
-	
+        
+        <section>
+			<h2><label for="Forum_name"></label><br /></h2>
+			<p><label for="Summary"></label><br /></p>
+            <p><label for="Date_created"></label><br /></p>
+           
+		</section>
+        
 	</template>
     
     
@@ -73,6 +80,16 @@
 	</template>
 	<template id="foo">
 		<form name="upload" method="post">
+            
+				<label for="forum">Your forum name</label>
+				<input type="text" name="forum" />
+            
+            <label for="Summary">Your summary</label>
+				<input type="text" name="Summary" />
+            
+            <label for="description">Your forum description</label>
+				<input type="text" name="description" />
+			
 			<p><label for="pass">Choose a file</label><br /><input type="file" name="file" /></p>
 			<p><button type="submit">Upload</button></p>
 		</form>

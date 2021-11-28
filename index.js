@@ -19,7 +19,7 @@ const app = new Application();
 app.use(async (context, next) => {
 	console.log('middleware running')
 	// if the call is to the API it must include the correct Content-Type
-	if(context.request.url.pathname.includes("/api/") && !(context.request.url.pathname.includes("/api/accounts") && context.request.method === 'POST')) { // to be replaced by Keegans code
+	if((context.request.url.pathname.includes("/api/") && !(context.request.url.pathname.includes("/api/v1/accounts") && context.request.method === 'POST' )) && !(context.request.url.pathname.includes("/api/v1/forums") && context.request.method === 'GET')  ) { //exceptions
 		console.log('API CALL')
 		console.log(context.request.headers.get('Content-Type'))
 		context.response.headers.set('Content-Type', 'application/vnd.api+json')//specifies the type of data
@@ -55,7 +55,7 @@ app.use(async (context, next) => {
 			return
 		}
 		// unless the API call is to register an account, the auth data must match an account
-		if(!context.request.url.pathname.includes('/register')) {
+		if(!context.request.url.pathname.includes('/register') ) {
 			console.log('not a call to /register')
 			const token = context.request.headers.get('Authorization')
 			console.log(`auth: ${token}`)
