@@ -21,14 +21,25 @@ async function uploadData(event) {
 	console.log('func UPLOAD DATA')
 	event.preventDefault()
 	const element = document.querySelector('input[name="file"]')
+    const forum = event.target.querySelector('input[name="forum"]').value
+    console.log(`forumaname: ${forum}`)
+    const summary = event.target.querySelector('input[name="Summary"]').value
+    console.log(`summary: ${summary}`)
+    const otherdsec = document.getElementById("thedesc").value
+    console.log(`otherdesc: ${otherdsec}`)  
+    //const description = event.target.querySelector('input[name="description"]').value
+    //console.log(`desc: ${description}`)
 	console.log(element)
 	const file = document.querySelector('input[name="file"]').files[0]
 	file.base64 = await file2DataURI(file)
 	file.user = localStorage.getItem('username')
+    file.Forum_name = forum
+    file.Summary = summary
+    file.Description = otherdsec
     
     // var tepat visu
 	console.log(file)
-	const url = '/api/files'
+	const url = '/api/v1/forums'
 	const options = {
 		method: 'POST',
 		headers: {
@@ -54,6 +65,7 @@ async function uploadData(event) {
 	console.log(response)
 	const json = await response.json()
 	console.log(json)
+    
 	showMessage('file uploaded')
 	loadPage('home')
 }

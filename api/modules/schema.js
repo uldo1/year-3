@@ -21,14 +21,14 @@ export const forumcheck = ajv.compile({
       type:"string",
       minLength: 2,    
 }, 
-  Image_name: {
+  base64: {
       type: "string",
-      minLength: 3,
+      
 },
         
         
     },
-   required: ['Forum_name','Summary','Description','Image_name'] 
+   required: ['Forum_name','Summary','Description'] 
     
 })
 

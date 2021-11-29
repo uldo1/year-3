@@ -35,14 +35,18 @@
 	</template>
     
     
-    <template id="forumdetails">
+    
+    
+    
+    <template id="forumcommentspage">
+     <p>Here should be a forum</p>   
         
-        <section>
-			<h2><label for="Forum_name"></label><br /></h2>
-			<p><label for="Summary"></label><br /></p>
-            <p><label for="Date_created"></label><br /></p>
-           
-		</section>
+        
+	</template>
+    
+    <template id="forumdetails">
+     <p>Here should be all forums</p>   
+        
         
 	</template>
     
@@ -79,21 +83,24 @@
 			<p><button>OK</button><button>Cancel</button></p>
 	</template>
 	<template id="foo">
+        <ol>
 		<form name="upload" method="post">
             
-				<label for="forum">Your forum name</label>
-				<input type="text" name="forum" />
+				<li><label for="forum">Your forum name</label>
+                    <input type="text" name="forum" /></li>
             
-            <label for="Summary">Your summary</label>
-				<input type="text" name="Summary" />
+            <li><label for="Summary">Your summary</label>
+                <input type="text" name="Summary" /></li>
             
-            <label for="description">Your forum description</label>
-				<input type="text" name="description" />
-			
-			<p><label for="pass">Choose a file</label><br /><input type="file" name="file" /></p>
-			<p><button type="submit">Upload</button></p>
+           <li> <label for="thedesc">Your forum description</label></li>
+               <textarea id="thedesc" name="description" rows="6" cols="50">The description of your forum goes here
+               </textarea> 
+			<ol/>  
+            <p><label for="pass">Choose a file</label><br /><input type="file" name="file" /></p>
+            <p><button type="submit">Upload</button></p>
 		</form>
-	</template>
+          
+	</template>  
     <template id="quote">
 		<section>
 			<h2></h2>

@@ -46,10 +46,11 @@ router.post('/api/v1/forums', async context => {
         console.log(validat)
         if (validat === false) throw forumcheck.errors
         data.username = username
+        let imagename = await saveFile(data.base64, data.username)
         const now = new Date().toISOString()
         const date = now.slice(0, 19).replace('T', ' ')
         data.Date_created = date
-        // now i save it to db
+        data.Image_name = imagename
         await saveforum(data)
         context.response.status = 201
         forumschema.data = data

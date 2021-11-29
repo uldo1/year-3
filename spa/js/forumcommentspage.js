@@ -13,7 +13,7 @@ export async function setup(node) {
 		console.log(token)
 		if(token === null) customiseNavbar(['home', 'register', 'login']) //navbar if logged out
         
-    await addContent(node)
+    //await addContent(node)
 	}catch(err) {
 		console.error(err)
 	}
@@ -38,41 +38,30 @@ async function addContent(node) {
   
     
     const template = document.querySelector('template#forumdetails')
-    
+    //const fragment = template.content.cloneNode(true)
     
 	
     jsondata.forEach( quote => {
     
-    const fragment = template.content.cloneNode(true)
+        const fragment = template.content.cloneNode(true)
 	const section = document.createElement('section')
 	const avatar = document.createElement("img")
     const h2 = document.createElement('h2')
     const p = document.createElement('p')
     const pd = document.createElement('p')
-    
-    const forumlink = document.createElement('a')
-    
     const uploads = "/uploads/"
     const pathtoimg =quote.Image_name
     const alltogether = String(uploads+pathtoimg)
-    
-    forumlink.innerText = "Show forum"
-    forumlink.href = `/forumcommentspage?forum=${quote.id} `
-    
+
     avatar.src = alltogether
-    avatar.setAttribute("width","50")
-    avatar.setAttribute("height","50")  
 	h2.innerText = quote.Forum_name
 	p.innerText = quote.Summary
     pd.innerText = quote.Date_created
     section.appendChild(h2)
-    section.appendChild(avatar)
     section.appendChild(p)
 	section.appendChild(pd)
-   
-        section.appendChild(forumlink)
-	
-        fragment.appendChild(section)
+    section.appendChild(avatar)
+	fragment.appendChild(section)
     node.appendChild(fragment)    
 })
 
