@@ -57,7 +57,7 @@ export async function forumcomments(data){
 
 export async function savecomment(data) {
 	
-	const sql = `INSERT INTO Comments(Comment,Poster_username,Date_posted,forum_id) VALUES("${data.Comment}", "${data.username}", "${data.Date_created}", ${data.forum_id})`
+	const sql = `INSERT INTO Comments(Comment,Poster_username,Date_posted,forum_id) VALUES('${data.Comment}', "${data.username}", "${data.Date_created}", ${data.forum_id})`
 	console.log(sql)
 	const records = await db.query(sql)
 	return true

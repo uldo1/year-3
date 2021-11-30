@@ -57,7 +57,7 @@ async function addContent(node) {
     const alltogether = String(uploads+pathtoimg)
     
     forumlink.innerText = "Show forum"
-    forumlink.href = `/forumcommentspage?forum=${quote.id} `
+    forumlink.href = `/forumcommentspage?forum=${quote.id}`
     
     avatar.src = alltogether
     avatar.setAttribute("width","50")
@@ -70,34 +70,11 @@ async function addContent(node) {
     section.appendChild(p)
 	section.appendChild(pd)
    
-        section.appendChild(forumlink)
+    section.appendChild(forumlink)
 	
-        fragment.appendChild(section)
+    fragment.appendChild(section)
     node.appendChild(fragment)    
 })
-
-
-//node.appendChild(fragment)
-    
-    
-    
-    //is not iterable 
-   /* for(const index of jsondata.forums) {
-		const fragment = template.content.cloneNode(true)
-		fragment.querySelector('h2').innerText = jsondata.forums[index].Forum_name
-		fragment.querySelector('p').innerText = jsondata.forums[index].Summary
-		node.appendChild(fragment)
-	}
-    */
-	/*for(const index of jsondata.forums) {
-		h2.innerText = forums.Forum_name
-        sumar.innerText = forums.Summary
-        
-        section.appendChild(h2)
-		section.appendChild(sumar)
-        section.appendChild(section)
-		node.appendChild(fragment) 
-	}*/
 	
 }
 

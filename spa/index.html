@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width", initial-scale="1.0" />
 		<title>Single Page App</title>
 		<link rel="stylesheet" href="style/main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.0/showdown.min.js"></script>
 		<script type="module" src="./router.js" defer></script>
 	</head>
 	<body>
@@ -39,13 +40,31 @@
     
     
     <template id="forumcommentspage">
-     <p>Here should be a forum</p>   
+     <p>Here should be a forum</p>
+     <p>Here should be all thet comments from a forum</p>   
+     
+       
         
         
 	</template>
     
+     <template id="commentform">
+    <form name="uploadcom" method="post">
+        <ul style="list-style: none;">
+            <li><label for="thecomm">Add you comment below</label></li>
+               <li><textarea id="thecomm" name="commentarea" rows="6" cols="50">
+                   </textarea></li>
+            
+             <li><article id="markd" name="markdownpreview"></article></li>
+            
+                
+            <li><button type="submit">Submit comment</button> </li>
+        </ul>
+		</form>
+    </template>
+    
     <template id="forumdetails">
-     <p>Here should be all forums</p>   
+      
         
         
 	</template>
@@ -57,11 +76,11 @@
 			<p><label for="forumname">Forum name</label><br /><input type="text" name="forumname" placeholder="Forum name" /></p>
 			<p><label for="summary">Short summary</label><br /><input type="text" name="summary" placeholder="What my forum is about" /></p>
             <p><label for="Description">Detailed description of forum</label><br /><input type="text" name="description" placeholder="What my forum is about" /></p> 
-            // must support markdown and be 100 words or more
-			<p><button type="submit">Create forum</button></p>
+           
+			<p><button type="submit">Create comment</button></p>
 		</form>
 	</template>
-    
+   
     
    
 	<template id="login">
@@ -94,7 +113,11 @@
             
            <li> <label for="thedesc">Your forum description</label></li>
                <textarea id="thedesc" name="description" rows="6" cols="50">The description of your forum goes here
-               </textarea> 
+               </textarea>
+            <li>
+            <article id="markd" name="markdownprev"></article>
+            </li>
+          
 			<ol/>  
             <p><label for="pass">Choose a file</label><br /><input type="file" name="file" /></p>
             <p><button type="submit">Upload</button></p>

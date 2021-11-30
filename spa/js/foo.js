@@ -1,6 +1,24 @@
 
 /* foo.js */
 
+let converter
+window.addEventListener('input', async event => {
+  console.log('inputted')
+	converter = new showdown.Converter({'tables': true, 'tasklists': true, 'strikethrough': true})
+  const options = converter.getOptions()
+  console.log(options)
+console.log('change')
+const markdown = document.querySelector("textarea[name='description']").value
+console.log(markdown)
+const html = converter.makeHtml(markdown)
+console.log(html)
+document.querySelector("article[name='markdownprev']").value = html
+document.getElementById("markd").innerHTML = html
+	
+}) //kkas pa vidu
+
+
+
 import { customiseNavbar, file2DataURI, loadPage, secureGet, showMessage } from '../util.js'
 
 export async function setup(node) {
@@ -22,14 +40,12 @@ async function uploadData(event) {
 	event.preventDefault()
 	const element = document.querySelector('input[name="file"]')
     const forum = event.target.querySelector('input[name="forum"]').value
-    console.log(`forumaname: ${forum}`)
+   
     const summary = event.target.querySelector('input[name="Summary"]').value
-    console.log(`summary: ${summary}`)
-    const otherdsec = document.getElementById("thedesc").value
-    console.log(`otherdesc: ${otherdsec}`)  
-    //const description = event.target.querySelector('input[name="description"]').value
-    //console.log(`desc: ${description}`)
-	console.log(element)
+  
+    const otherdsec = event.target.querySelector('article[name="markdownprev"]').value 
+    
+	
 	const file = document.querySelector('input[name="file"]').files[0]
 	file.base64 = await file2DataURI(file)
 	file.user = localStorage.getItem('username')
