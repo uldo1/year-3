@@ -33,6 +33,15 @@ export async function oneforum(data){
 	    
 }
 
+export async function newestcomm(data){
+    console.log(data)
+	let sql = `SELECT MAX(DATE_FORMAT (Date_posted,'%Y-%m-%d')) AS Date_posted FROM Comments WHERE forum_id = ${data};`
+	const onecomm = await db.query(sql)
+    console.log(sql)
+    return onecomm
+	    
+}
+
 export async function checkifforumexists(data){
     console.log(data)
 	let sql = `SELECT Forum_name,Summary,Description,Creator_username,Date_created,Image_name FROM Forums WHERE id = ${data};`

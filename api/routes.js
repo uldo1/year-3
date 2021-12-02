@@ -5,7 +5,7 @@ import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 
 import { extractCredentials, saveFile } from './modules/util.js'
 import { login, register } from './modules/accounts.js'
-import { forums, saveforum, oneforum, forumcomments, checkifforumexists, savecomment } from './modules/databasecmd.js'
+import { forums, saveforum, oneforum, forumcomments, checkifforumexists, savecomment, newestcomm } from './modules/databasecmd.js'
 import {forumcheck, forumschema, bothtogether, commentcheck} from './modules/schema.js'
 
 const router = new Router()
@@ -26,6 +26,11 @@ router.get('/api/v1/forums', async context => {
 		forum.url = `https://${host}/api/v1/forums/${forum.id}`
 		
 	})
+    for (var i=0; i<forumsfromdb.length; i++){
+ const commenntdate = await newestcomm(forumsfromdb[i].id)
+        forumsfromdb[i].commdate = commenntdate[0].Date_posted
+    }
+    
 	context.response.body = JSON.stringify(forumsfromdb)
 })
 

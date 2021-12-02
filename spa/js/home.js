@@ -64,7 +64,12 @@ async function addContent(node) {
     avatar.setAttribute("height","50")  
 	h2.innerText = quote.Forum_name
 	p.innerText = quote.Summary
-    pd.innerText = quote.Date_created
+    if (quote.commdate != null){
+      pd.innerText = quote.commdate  
+    }else{
+       pd.innerText = quote.Date_created 
+    }
+       
     section.appendChild(h2)
     section.appendChild(avatar)
     section.appendChild(p)
