@@ -18,7 +18,7 @@
 			<ul>
 				<li><a href="/">Home</a></li>
 				<li><a href="/register">Register</a></li>
-				<li><a href="/foo">Foo</a></li>
+				<li><a href="/newforum">New forum</a></li>
 				<li><a href="/login">Log in</a></li>
 				<li><a href="/logout">Log out</a></li>
 			</ul>
@@ -40,8 +40,6 @@
     
     
     <template id="forumcommentspage">
-     <p>Here should be a forum</p>
-     <p>Here should be all thet comments from a forum</p>   
      
        
         
@@ -101,7 +99,7 @@
 			<p>Do you want to log out?</p>
 			<p><button>OK</button><button>Cancel</button></p>
 	</template>
-	<template id="foo">
+	<template id="newforum">
         <ol>
 		<form name="upload" method="post">
             
@@ -109,11 +107,11 @@
                     <input type="text" name="forum" /></li>
             
             <li><label for="Summary">Your summary</label>
-                <input type="text" name="Summary" /></li>
+                <li><textarea id="thesummary" name="Summary" maxlength="100"> </textarea></li>
             
            <li> <label for="thedesc">Your forum description</label></li>
-               <textarea id="thedesc" name="description" rows="6" cols="50">The description of your forum goes here
-               </textarea>
+              <li> <textarea id="thedesc" name="description" rows="6" cols="50">The description of your forum goes here
+                  </textarea></li>
             <li>
             <article id="markd" name="markdownprev"></article>
             </li>

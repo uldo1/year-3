@@ -1,5 +1,5 @@
 
-/* foo.js */
+/* newforum.js */
 
 let converter
 window.addEventListener('input', async event => {
@@ -22,11 +22,11 @@ document.getElementById("markd").innerHTML = html
 import { customiseNavbar, file2DataURI, loadPage, secureGet, showMessage } from '../util.js'
 
 export async function setup(node) {
-	console.log('FOO: setup')
+	console.log('NEWFORUM: setup')
 	try {
 		console.log(node)
-		document.querySelector('header p').innerText = 'Foobar'
-		customiseNavbar(['home', 'logout', 'foo'])
+		document.querySelector('header p').innerText = 'newforum'
+		customiseNavbar(['home', 'logout', 'newforum'])
 		if(localStorage.getItem('authorization') === null) loadPage('login')
 		// there is a token in localstorage
 		node.querySelector('form').addEventListener('submit', await uploadData)
@@ -41,7 +41,7 @@ async function uploadData(event) {
 	const element = document.querySelector('input[name="file"]')
     const forum = event.target.querySelector('input[name="forum"]').value
    
-    const summary = event.target.querySelector('input[name="Summary"]').value
+    const summary = event.target.querySelector('textarea[name="Summary"]').value
   
     const otherdsec = event.target.querySelector('article[name="markdownprev"]').value 
     

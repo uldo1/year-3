@@ -7,7 +7,7 @@ window.addEventListener('input', async event => {
   const options = converter.getOptions()
   console.log(options)
 console.log('change')
-const markdown = document.querySelector("textarea[name='commentarea']").value
+const markdown =  document.querySelector("textarea[name='commentarea']").value
 console.log(markdown)
 const html = converter.makeHtml(markdown)
 console.log(html)
@@ -26,10 +26,11 @@ import { customiseNavbar, file2DataURI, loadPage, secureGet, showMessage } from 
 export async function setup(node) {
 	console.log('forumspage: setup')
 	try {
+        if(localStorage.getItem('authorization') === null) loadPage('login')
 		console.log(node)
 		document.querySelector('header p').innerText = 'comment and oneforum'
-		customiseNavbar(['home', 'logout', 'foo'])
-		if(localStorage.getItem('authorization') === null) loadPage('login')
+		customiseNavbar(['home', 'logout', 'newforum'])
+		
 		await addContent(node)
         node.querySelector("form[name='uploadcom']").addEventListener('submit', await uploadData)
 		

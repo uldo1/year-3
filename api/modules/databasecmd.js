@@ -18,7 +18,7 @@ export async function forums(){
 
 export async function saveforum(data) {
 	
-	const sql = `INSERT INTO Forums(Forum_name,Summary,Description,Image_name,Creator_username,Date_created) VALUES("${data.Forum_name}", "${data.Summary}", "${data.Description}", "${data.Image_name}","${data.username}", "${data.Date_created}")`
+	const sql = `INSERT INTO Forums(Forum_name,Summary,Description,Image_name,Creator_username,Date_created) VALUES('${data.Forum_name}', '${data.Summary}', '${data.Description}', "${data.Image_name}","${data.username}", "${data.Date_created}")`
 	console.log(sql)
 	const records = await db.query(sql)
 	return true
