@@ -69,6 +69,7 @@ async function addContent(node) {
     const h2 = document.createElement('h2')
     const p = document.createElement('p')
     const pd = document.createElement('p')
+    const usr = document.createElement('p')
     const des = document.createElement('article')
     const linebreak = document.createElement('br');
     const uploads = "/uploads/"
@@ -80,10 +81,12 @@ async function addContent(node) {
 	p.innerText = jsondata.forum[0].Summary
     des.innerHTML = jsondata.forum[0].Description
     pd.innerText = jsondata.forum[0].Date_created
+    usr.innerText = jsondata.forum[0].Creator_username
     section.appendChild(h2)
     section.appendChild(avatar)
     section.appendChild(p)
 	section.appendChild(pd)
+    section.appendChild(usr)
     section.appendChild(des)
     
 	fragment.appendChild(section)
